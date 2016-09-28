@@ -7,8 +7,8 @@ var isMouseDown = false;
 var lastLoc = {x:0,y:0};
 var lastTimestamp = 0;
 var lastlineWidth = -1;
-var maxLineWidth = 25;
-var minLineWidth = 10;
+var maxLineWidth = document.getElementById("range").value;
+var minLineWidth = 5;
 var maxV = 10;
 var minV = 2;
 var strokeColor = "black";
@@ -36,7 +36,13 @@ $(".color_btn").click(
 		strokeColor = $(this).css("background-color")
 	})
 
-//鼠标事件
+//改变粗细
+/*function changeWidth(){
+	var x = document.getElementById("range").value;
+	maxLineWidth = x;
+}*/
+
+
 function beginStroke(point){
 	isMouseDown = true;
 	lastLoc = windowToCanvas(point.x,point.y);
@@ -67,7 +73,7 @@ function moveStroke(point){
 	lastTimestamp = curTimestamp;
 	lastlineWidth = lineWidth;
 }
-
+//鼠标事件
 canvas.onmousedown = function(e){
 	e.preventDefault();
 	beginStroke({x:e.clientX,y:e.clientY})	
@@ -115,11 +121,11 @@ function calclineWidth(t,s){
 	var v = s/t;
 	var resultLineWidth;
 	if(v<=minV){
-		resultLineWidth = maxLineWidth;
+		resultLineWidth = document.getElementById("range").value;
 	}else if(v>=maxV){
 		resultLineWidth = minLineWidth;
 	}else{
-		resultLineWidth = maxLineWidth-(v-minV)/(maxV-minV)*(maxLineWidth-minLineWidth);
+		resultLineWidth = document.getElementById("range").value-(v-minV)/(maxV-minV)*(document.getElementById("range").value-minLineWidth);
 	}
 	if(lastlineWidth = -1){
 		return resultLineWidth;
@@ -167,3 +173,4 @@ function drawGrid(){
 	context.stroke();
 	context.restore();
 }
+
