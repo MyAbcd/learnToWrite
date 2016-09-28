@@ -35,14 +35,6 @@ $(".color_btn").click(
 		$(this).addClass("color_btn_selected")
 		strokeColor = $(this).css("background-color")
 	})
-
-//改变粗细
-/*function changeWidth(){
-	var x = document.getElementById("range").value;
-	maxLineWidth = x;
-}*/
-
-
 function beginStroke(point){
 	isMouseDown = true;
 	lastLoc = windowToCanvas(point.x,point.y);
@@ -156,6 +148,7 @@ function drawGrid(){
 	context.lineWidth = 6
 	context.stroke();
 
+	context.setLineDash([5,15]);
 	context.beginPath();
 	context.moveTo(0,0);
 	context.lineTo(canvasWidth,canvasHeight);
@@ -173,4 +166,5 @@ function drawGrid(){
 	context.stroke();
 	context.restore();
 }
+
 
